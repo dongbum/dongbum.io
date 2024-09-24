@@ -10,11 +10,13 @@
 - Remove unnecessary "type" attribute (#4956)
 - The "if" means the default is never used (#4955)
 - For pages without a title, show the site title only once (#4959)
+- Use `documents-collection.html` partial in `home` layout.
 
 ### Bug Fixes
 
 - Replace a redirected link to MadeMistakes in footer. [#4882](https://github.com/mmistakes/minimal-mistakes/pull/4882)
 - Fix wrong float direction for `feature_row` with `type="right"`. [#4061](https://github.com/mmistakes/minimal-mistakes/issues/4061)
+- Fix reset stylesheet overruling `$doc-font-size`. [#4983](https://github.com/mmistakes/minimal-mistakes/issues/4983)
 
 ### Documentation & Maintenance
 
