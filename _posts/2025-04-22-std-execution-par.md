@@ -103,5 +103,21 @@ int main( void )
 표를 본다면 원소갯수가 300개까지는 정렬전략을 고르지 않고 기본전략대로 사용하는 것이 더 좋을 것으로 보인다. 대략 원소갯수 500개 정도부터는 std::execution::par 를 설정하는 것이 검색시간을 줄이는 효과가 나타나는 것을 알 수 있었다. 1000개는 대략 1/2 로 감소시키는 효과가 있었고 10000개부터는 거의 1/10 으로 감소시킬 수 있었다.
 
 ### 결론
-원소갯수 300개 미만은 std::sort 를 사용하면 된다.
-원소갯수 300개 이상은 std::sort + std::execution::par 를 사용하는 것이 좋다.
+원소갯수 300개 미만은 std::sort 를 사용하면 된다. 원소갯수 300개 이상은 std::sort + std::execution::par 를 사용하는 것이 좋다.
+
+난 다음과 같은 템플릿함수를 만들어서 사용 중이다. std::sort 와 동일하게 작동할 수 있으면서 원소 갯수에 따라서 정렬알고리즘을 선택하게 하여 최고의 속도를 내게 만든다.
+
+```c++
+template<class RandomIt, class Compare>
+void RzSort( RandomIt first, RandomIt last, Compare comp )
+{
+	auto size = std::distance( first, last );
+	if ( size <= 0 )
+		return;
+
+	if ( size < 1000 )
+		std::sort( first, last, comp );
+	else
+		std::sort( std::execution::par, first, last, comp );
+}
+```
